@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="columns">
-        <div class="column" id="dash-table-container">
+        <div class="column is-full" id="dash-table-container">
           <dash-table></dash-table>
         </div>
         {{ $solutions->links() }}
