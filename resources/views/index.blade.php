@@ -30,10 +30,12 @@
         </div>
       </div>
       <div class="columns">
-        <div class="column is-full" id="dash-table-container">
+        <div class="column is-12" id="dash-table-container">
           <dash-table></dash-table>
         </div>
-        <div class="column is-full">
+      </div>
+      <div class="columns">
+        <div class="column is-12">
         {{ $solutions->links() }}
         </div>    
       </div>
