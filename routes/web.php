@@ -34,8 +34,7 @@ Route::post('api/solutions', function(Request $request){
 });
 
 Route::get('api/solutions/{sol}', function(Solution $sol) {
-
-    return response()->json($sol);
+    return response()->json($sol->makeVisible('data'));
 });
 
 Route::get('heatmaps/earthquakes', function(){

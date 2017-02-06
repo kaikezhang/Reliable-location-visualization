@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Solution extends Model
 {
+    protected $hidden = ['data'];
+
     protected $casts = ['data' => 'array'];
 
     protected $dates = [
