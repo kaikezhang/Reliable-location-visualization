@@ -15,11 +15,6 @@ class CreateSolutionsTable extends Migration
     {
         Schema::create('solutions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('nbNodes');
-            $table->integer('nbOpen');
-            $table->double('solutionTime');
-            $table->string('solver');
-            $table->double('objValue');
             $table->json('data');
             $table->timestamps();
         });

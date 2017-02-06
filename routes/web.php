@@ -15,7 +15,8 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-	$solutions = Solution::orderBy('created_at','desc')->paginate(20);;
+	$solutions = Solution::orderBy('created_at','desc')->paginate(20);
+
     return view('index', ['solutions' => $solutions]);
 });
 
@@ -27,14 +28,6 @@ Route::post('api/solutions', function(Request $request){
     $data = $request->input('data');
     $solution = new  Solution;  
     $solution->data = json_decode($data,true);
-    $solution->nbOpen = $solution->data['numberofOpen'];
-    $solution->nbNodes = $solution->data['numberofNodes'];
-    $solution->solutionTime = $solution->data['solutionTime'];
-    $solution->solver = $solution->data['solver'];
-    $solution->objValue = $solution->data['objectiveValue'];
-    $solution->parameters = array_get($solution->data, 'parameters', '-');
-    $solution->nbCuts = array_get($solution->data, 'nbCuts', null);
-    $solution->gap = array_get($solution->data, 'gap', null);
     $solution->save();
     event(new App\Events\SolutionCreated($solution));
     return response('OK id=' .$solution->id, 200);    
