@@ -33,7 +33,9 @@
         <div class="column is-full" id="dash-table-container">
           <dash-table></dash-table>
         </div>
+        <div class="column is-full">
         {{ $solutions->links() }}
+        </div>    
       </div>
     </div>       
     </section>
