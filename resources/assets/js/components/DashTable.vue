@@ -32,6 +32,7 @@
         <td> {{solution.solver}}</td>
         <td>
         <span :class="{ 'is-danger': solution.status === 'Infeasible',
+                        'is-danger': solution.status === 'Error',
                         'is-warning': solution.status === 'Time reaches',
                         'is-success': solution.status === 'Gap reaches',
                         }" class="tag is-medium" > 
