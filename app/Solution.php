@@ -17,7 +17,13 @@ class Solution extends Model
 
     protected $appends = 
     ['nb_nodes', 'nb_open', 'solution_time', 'obj_value',
-     'parameters', 'nb_cuts', 'gap', 'problem', 'solver'];
+     'parameters', 'nb_cuts', 'gap', 'problem', 
+     'solver', 'status'];
+
+    public function getStatusAttribute()
+    {
+      return array_get($this->data, 'status', '-');
+    }
 
     public function getNbNodesAttribute()
     {

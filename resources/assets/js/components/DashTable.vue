@@ -13,7 +13,7 @@
         <th>#Cuts</th>
         <th>Problem</th>
         <th>Solver</th>
-        <th>Solved at</th>
+        <th>Status</th>
         <th></th>
       </tr>
     </thead>
@@ -30,7 +30,14 @@
         <td> {{solution.nb_cuts}}</td>
         <td> {{solution.problem}}</td>
         <td> {{solution.solver}}</td>
-        <td> {{solution.created_at}} </td>
+        <td>
+        <span :class="{ 'is-danger': solution.status === 'Infeasible',
+                        'is-warning': solution.status === 'Time reaches',
+                        'is-success': solution.status === 'Gap reaches',
+                        }" class="tag is-medium" > 
+            {{solution.status}} 
+        </span>       
+        </td>
         <td><a :href="'/solutions/' + solution.id">View</a></td>
       </tr>   
     </tbody>
@@ -61,6 +68,11 @@ export default {
         return value;        
       else
         return value.toLocaleString();
+    }
+  },
+  methods:{
+    isInfeasible(solution){
+      return solution.status === "Infeasible";
     }
   }
 }
