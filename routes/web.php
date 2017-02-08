@@ -14,10 +14,63 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
-	$solutions = Solution::orderBy('created_at','desc')->paginate(20);
+Route::get('/', function (Request $request) {
 
-    return view('index', ['solutions' => $solutions]);
+    $problems = DB::table('solutions')->select('data->problem AS problem')
+                            ->groupBy('data->problem')
+                            ->distinct()->get()
+                            ->all();
+    $problems = array_map(create_function('$o', 'return trim($o->problem,\'\"\');'), $problems);                        
+
+    $solvers = DB::table('solutions')->select('data->solver AS solver')
+                            ->groupBy('data->solver')
+                            ->distinct()->get()->all();
+    $solvers = array_map(create_function('$o', 'return trim($o->solver,\'\"\');'), $solvers);
+    
+
+    $statuses = DB::table('solutions')->select('data->status AS status')
+                            ->groupBy('data->status')
+                            ->distinct()->get()->all();
+    $statuses = array_map(create_function('$o', 'return trim($o->status,\'\"\');'), $statuses);                                            
+
+    $filters = new stdClass();
+    $filters->problemOptions = array_filter(array_prepend($problems, 'Select Problem'));
+    $filters->solverOptions = array_filter(array_prepend($solvers, 'Select Solver'));
+    $filters->statusOptions = array_filter(array_prepend($statuses, 'Select Status'));
+
+    $queryBuilder = Solution::orderBy('created_at','desc');
+    $shouldRecieveUpdate = true;
+
+    if($request->has('page') && ($request->get('page') > 1)){
+        $shouldRecieveUpdate = false;
+    }
+    if($request->has('prb')){
+        $queryBuilder = $queryBuilder->where('data->problem', $request->get('prb'));
+        $shouldRecieveUpdate = false;
+        $filters->problem = $request->get('prb');
+    } else {
+        $filters->problem = 'Select Problem';
+    }
+    if($request->has('solver')){
+        $queryBuilder = $queryBuilder->where('data->solver', $request->get('solver'));
+        $shouldRecieveUpdate = false;
+        $filters->solver = $request->get('solver');
+    } else {
+        $filters->solver = 'Select Solver';
+    }
+    if($request->has('status')){
+        $queryBuilder = $queryBuilder->where('data->status', $request->get('status'));
+        $shouldRecieveUpdate = false;
+        $filters->status = $request->get('status');
+    } else {
+        $filters->status = 'Select Status';
+    }
+
+	$solutions = $queryBuilder->paginate(20)->appends($request->except(['page']));
+
+    return view('index', ['solutions' => $solutions, 
+                          'shouldRecieveUpdate' => $shouldRecieveUpdate,
+                          'filters' => $filters]);
 });
 
 Route::get('/solutions/{id}', function ($id) {

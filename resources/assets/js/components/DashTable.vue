@@ -1,6 +1,6 @@
 <template>
-
-  <table class="table is-striped" id="solutionsTable">
+<div>
+  <table v-if="solutions.length > 0" class="table is-striped" id="solutionsTable">
     <thead>
       <tr>
         <th>ID</abbr></th>
@@ -31,9 +31,9 @@
         <td> {{solution.problem}}</td>
         <td> {{solution.solver}}</td>
         <td>
-        <span :class="{ 'is-danger': solution.status === 'Infeasible',
-                        'is-danger': solution.status === 'Error',
-                        'is-warning': solution.status === 'Time reaches',
+        <span :class="{ 'is-danger': solution.status === 'Error',
+                        'is-warning': solution.status === 'Infeasible' 
+                                      || solution.status === 'Time reaches',
                         'is-success': solution.status === 'Gap reaches',
                         }" class="tag is-medium" > 
             {{solution.status}} 
@@ -41,12 +41,12 @@
         </td>
         <td><a :href="'/solutions/' + solution.id">View</a></td>
       </tr>   
-    </tbody>
-    
+    </tbody> 
   </table>
+  <h2 v-else class="subtitle is-2 has-text-centered">No solutions yet!</h4>
+</div>
 
 
-   
 </template>
 
 <script>

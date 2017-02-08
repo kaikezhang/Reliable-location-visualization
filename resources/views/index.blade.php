@@ -21,7 +21,7 @@
       </div>
     </section>
     <section>
-     <div class="container">
+     <div class="container" id="app">
       <div class="colums">
         <div class="column is-half is-offset-one-quarter">
           <div class="notification has-text-centered">
@@ -30,7 +30,14 @@
         </div>
       </div>
       <div class="columns">
-        <div class="column is-12" id="dash-table-container">
+        <div class="column is-12">
+          <div class="is-pulled-right">
+            <filter-form></filter-form>
+          </div>   
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column is-12" >
           <dash-table></dash-table>
         </div>
       </div>
@@ -44,6 +51,8 @@
     <script type="text/javascript">
      let data = {!! $solutions->toJson()!!};
      window.solutions = data.data;
+     window.shouldRecieveUpdate = true;
+     window.filters = {!! json_encode($filters)!!};
     </script>
     <script type="text/javascript" src="{{asset('js/index.js')}}"></script>
   </body>
