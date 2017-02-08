@@ -43,7 +43,7 @@
       </tr>   
     </tbody> 
   </table>
-  <h2 v-else class="subtitle is-2 has-text-centered">No solutions yet!</h4>
+  <h2 v-else class="subtitle is-2 has-text-centered">No solution yet!</h4>
 </div>
 
 

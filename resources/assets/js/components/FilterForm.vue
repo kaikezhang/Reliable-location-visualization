@@ -25,7 +25,10 @@
     </span>
     <span class="control" @click.prevent="submit">
       <button class="button is-primary is-medium">Submit</button>
-    </span>  
+    </span>
+    <span class="control" @click.prevent="reset">
+      <button class="button is-medium">Reset</button>
+    </span>        
 </div>
 </template>
 
@@ -41,8 +44,13 @@ export default {
        for (let d in data)
          ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
        return ret.join('&');
-    },    
-    submit(event){
+    },
+    reset(){
+      this.problem = this.problemOptions[0];
+      this.solver = this.solverOptions[0];
+      this.status = this.statusOptions[0];
+    }, 
+    submit(){
       let paras = {};
       if( ! this.problem.includes('Select') ){
         paras.prb = this.problem;
