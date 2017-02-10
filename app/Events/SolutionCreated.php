@@ -43,7 +43,6 @@ class SolutionCreated implements ShouldBroadcast
     public function broadcastWith()
     {
         $array = $this->solution->toArray();
-        unset($array['data']);
         return $array;
     }
 

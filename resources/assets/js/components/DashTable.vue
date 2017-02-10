@@ -14,7 +14,8 @@
         <th>Problem</th>
         <th>Solver</th>
         <th>Status</th>
-        <th></th>
+        <th>Log</th>
+        <th>Map</th>
       </tr>
     </thead>
     
@@ -36,8 +37,13 @@
                                       || solution.status === 'Time reaches',
                         'is-success': solution.status === 'Gap reaches',
                         }" class="tag is-medium" > 
-            {{solution.status}} 
+              {{solution.status}} 
         </span>       
+        </td>
+        <td>
+        <template v-if="solution.has_log">
+          <a :href="'/solutions/' + solution.id + '/log'">Check</a>
+        </template>          
         </td>
         <td><a :href="'/solutions/' + solution.id">View</a></td>
       </tr>   

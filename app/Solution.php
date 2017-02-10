@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Solution extends Model
 {
-    protected $hidden = ['data'];
+    protected $hidden = ['data', 'log'];
 
     protected $casts = ['data' => 'array'];
 
@@ -18,7 +18,7 @@ class Solution extends Model
     protected $appends = 
     ['nb_nodes', 'nb_open', 'solution_time', 'obj_value',
      'parameters', 'nb_cuts', 'gap', 'problem', 
-     'solver', 'status'];
+     'solver', 'status', 'log', 'has_log'];
 
     public function getStatusAttribute()
     {
@@ -69,5 +69,17 @@ class Solution extends Model
     {
       return array_get($this->data, 'solver', '-');
     }
-                
+
+    public function getLogAttribute()
+    {
+      return array_get($this->data, 'log', '-');
+    }
+
+    public function getHasLogAttribute()
+    {
+      if($this->log == '-') 
+        return false;
+      return true;
+    }    
+
 }

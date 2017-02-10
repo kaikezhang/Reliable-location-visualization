@@ -77,13 +77,18 @@ Route::get('/solutions/{id}', function ($id) {
     return view('view_solution', ['id' => $id]);
 });
 
+Route::get('/solutions/{id}/log', function ( $id) {
+    $solution = Solution::findOrFail($id)->makeVisible('log');
+    return view('view_log', ['solution' => $solution]);
+});
+
 Route::post('api/solutions', function(Request $request){
     $data = $request->input('data');
     $solution = new  Solution;  
     $solution->data = json_decode($data,true);
     $solution->save();
     event(new App\Events\SolutionCreated($solution));
-    return response('OK id=' .$solution->id, 200);    
+    return response('OK id= ' .$solution->id, 200);    
 });
 
 Route::get('api/solutions/{sol}', function(Solution $sol) {
