@@ -55,7 +55,7 @@ Route::get('/', function (Request $request) {
         $filters->status = 'Select Status';
     }
     if($request->has('nodes')){
-        $queryBuilder = $queryBuilder->where('data->numberofNodes', $request->get('nodes'));
+        $queryBuilder = $queryBuilder->where('data->numberofNodes', intval($request->get('nodes')));
         $shouldRecieveUpdate = false;
         $filters->nodes = $request->get('nodes');
     } else {
