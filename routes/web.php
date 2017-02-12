@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function (Request $request) {
-    
+
     $nodeses = Solution::getNodeses();               
     $problems = Solution::getProblmes();
     $solvers = Solution::getSolvers();
@@ -70,8 +70,12 @@ Route::get('/', function (Request $request) {
                           'filters' => $filters]);
 });
 
-Route::get('/solutions/{id}', function ($id) {
-    return view('view_solution', ['id' => $id]);
+Route::get('/solutions/{solution}', function (Solution $solution) {
+    return view('view_solution', ['solution' => $solution]);
+});
+
+Route::get('/solutions/{id}/map', function ($id) {
+    return view('view_on_map', ['id' => $id]);
 });
 
 Route::get('/solutions/{id}/log', function ( $id) {

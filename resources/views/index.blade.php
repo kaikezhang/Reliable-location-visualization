@@ -12,17 +12,17 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-            Location solution visualization
+            Reliable facility location problems
           </h1>
           <h2 class="subtitle">
-            Reliable facility location problems
+            Experiments and results
           </h2>
         </div>
       </div>
     </section>
     <section>
      <div class="container" id="app">
-      <div class="colums">
+      <div class="columns" style="padding-top:10px;">
         <div class="column is-half is-offset-one-quarter">
           <div class="notification has-text-centered">
             View natural disaster <a href="/heatmaps">heat maps</a>.

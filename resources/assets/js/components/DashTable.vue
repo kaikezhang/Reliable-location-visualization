@@ -21,7 +21,7 @@
     
     <tbody name="tr-trasition" is="transition-group">
       <tr v-for="solution in solutions" :key="solution.id">
-        <td> {{solution.id}}</td>
+        <td> <a :href="'/solutions/' + solution.id ">{{solution.id}}</a> </td>
         <td> {{solution.nb_nodes}}</td>
         <td> <pre>{{solution.parameters}}</pre></td>
         <td> {{solution.nb_open}}</td>
@@ -47,7 +47,7 @@
         </td>  
         <td>
         <template v-if="isHasSolution(solution)">
-        <a :href="'/solutions/' + solution.id">View</a>
+        <a :href="'/solutions/' + solution.id + '/map'">View</a>
         </template>
         </td>
       </tr>   
