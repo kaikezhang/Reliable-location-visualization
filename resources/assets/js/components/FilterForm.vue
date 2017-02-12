@@ -1,9 +1,9 @@
 <template>
 <div>
 <div class="column is-12">
-<div class="columns">
-  <div class="column">
-    <span class="control select is-medium">
+<div class="columns is-multiline is-mobile">
+  <div class="column is-12-mobile">
+    <span class="control select is-medium is-fullwidth">
       <select v-model="nodes">
         <option v-for="option in nodesOptions" v-bind:value="option">
           {{ option }}
@@ -11,8 +11,8 @@
       </select>
     </span>    
   </div> 
-  <div class="column">
-      <span class="control select is-medium">
+  <div class="column is-12-mobile">
+      <span class="control select is-medium is-fullwidth">
         <select v-model="problem">
           <option v-for="option in problemOptions" v-bind:value="option">
             {{ option }}
@@ -20,8 +20,8 @@
         </select>
       </span>
   </div>
-  <div class="column">
-      <span class="control select is-medium">
+  <div class="column is-12-mobile">
+      <span class="control select is-medium is-fullwidth">
         <select v-model="solver">
           <option v-for="option in solverOptions" v-bind:value="option">
             {{ option }}
@@ -29,8 +29,8 @@
         </select>
       </span>
   </div>
-  <div class="column">
-      <span class="control select is-medium">
+  <div class="column is-12-mobile">
+      <span class="control select is-medium is-fullwidth">
         <select v-model="status">
           <option v-for="option in statusOptions" v-bind:value="option">
             {{ option }}
@@ -40,7 +40,7 @@
   </div>        
 </div>
 </div>
-<div class="column is-12">
+<div class="column is-12-mobile">
   <div class="control is-pulled-right">
       <span class="control" @click.prevent="submit">
         <button class="button is-primary is-medium">Submit</button>
