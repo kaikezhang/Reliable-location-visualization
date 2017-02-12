@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function (Request $request) {
-
+    
     $nodeses = Solution::getNodeses();               
     $problems = Solution::getProblmes();
     $solvers = Solution::getSolvers();

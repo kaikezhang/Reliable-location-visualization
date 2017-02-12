@@ -1,5 +1,7 @@
 <template>
-<div class="control" >
+<div>
+<div class="column is-12">
+<div class="control is-pulled-right">
     <span class="control select is-medium">
       <select v-model="nodes">
         <option v-for="option in nodesOptions" v-bind:value="option">
@@ -30,13 +32,19 @@
           {{ option }}
         </option>
       </select>
-    </span>
-    <span class="control" @click.prevent="submit">
-      <button class="button is-primary is-medium">Submit</button>
-    </span>
-    <span class="control" @click.prevent="reset">
-      <button class="button is-medium">Reset</button>
-    </span>        
+    </span>    
+</div>
+</div>
+<div class="column is-12">
+  <div class="control is-pulled-right">
+      <span class="control" @click.prevent="submit">
+        <button class="button is-primary is-medium">Submit</button>
+      </span>
+      <span class="control" @click.prevent="reset">
+        <button class="button is-medium">Reset</button>
+      </span>     
+  </div> 
+</div>     
 </div>
 </template>
 
