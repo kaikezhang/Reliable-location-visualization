@@ -16,24 +16,13 @@ use Illuminate\Http\Request;
 
 Route::get('/', function (Request $request) {
 
-    $problems = DB::table('solutions')->select('data->problem AS problem')
-                            ->groupBy('data->problem')
-                            ->distinct()->get()
-                            ->all();
-    $problems = array_map(create_function('$o', 'return trim($o->problem,\'\"\');'), $problems);                        
-
-    $solvers = DB::table('solutions')->select('data->solver AS solver')
-                            ->groupBy('data->solver')
-                            ->distinct()->get()->all();
-    $solvers = array_map(create_function('$o', 'return trim($o->solver,\'\"\');'), $solvers);
-    
-
-    $statuses = DB::table('solutions')->select('data->status AS status')
-                            ->groupBy('data->status')
-                            ->distinct()->get()->all();
-    $statuses = array_map(create_function('$o', 'return trim($o->status,\'\"\');'), $statuses);                                            
+    $nodeses = Solution::getNodeses();               
+    $problems = Solution::getProblmes();
+    $solvers = Solution::getSolvers();
+    $statuses = Solution::getStatuses();                                            
 
     $filters = new stdClass();
+    $filters->nodesOptions = array_filter(array_prepend($nodeses, 'Select Number of Nodes'));
     $filters->problemOptions = array_filter(array_prepend($problems, 'Select Problem'));
     $filters->solverOptions = array_filter(array_prepend($solvers, 'Select Solver'));
     $filters->statusOptions = array_filter(array_prepend($statuses, 'Select Status'));
@@ -65,6 +54,14 @@ Route::get('/', function (Request $request) {
     } else {
         $filters->status = 'Select Status';
     }
+    if($request->has('nodes')){
+        $queryBuilder = $queryBuilder->where('data->numberofNodes', $request->get('nodes'));
+        $shouldRecieveUpdate = false;
+        $filters->nodes = $request->get('nodes');
+    } else {
+        $filters->nodes = 'Select Number of Nodes';
+    }
+
 
 	$solutions = $queryBuilder->paginate(20)->appends($request->except(['page']));
 

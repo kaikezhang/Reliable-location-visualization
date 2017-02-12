@@ -34,8 +34,8 @@
         <td>
         <span :class="{ 'is-danger': solution.status === 'Error',
                         'is-warning': solution.status === 'Infeasible' 
-                                      || solution.status === 'Time reaches',
-                        'is-success': solution.status === 'Gap reaches',
+                                      || solution.status === 'Time Reached',
+                        'is-success': solution.status === 'Gap Reached',
                         }" class="tag is-medium" > 
               {{solution.status}} 
         </span>       

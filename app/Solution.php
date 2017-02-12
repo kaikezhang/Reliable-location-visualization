@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use \DB;
 
 class Solution extends Model
 {
@@ -80,6 +81,32 @@ class Solution extends Model
       if($this->log == '-') 
         return false;
       return true;
+    }
+
+    private static function findAllUnique($attr){
+      $ret = DB::table('solutions')
+                      ->select("data->$attr AS $attr")
+                      ->groupBy("data->$attr")
+                      ->distinct()->get()
+                      ->all();
+      $ret = array_map(create_function('$o', "return trim(\$o->$attr,'\"');"), $ret);
+      return $ret;  
+    }
+
+    static function getNodeses(){
+      return self::findAllUnique('numberofNodes');    
+    }
+
+    static function getProblmes(){
+      return self::findAllUnique('problem');    
+    }
+
+    static function getSolvers(){
+      return self::findAllUnique('solver');
+    }
+
+    static function getStatuses(){
+      return self::findAllUnique('status');
     }    
 
 }

@@ -1,6 +1,14 @@
 <template>
 <div class="control" >
     <span class="control select is-medium">
+      <select v-model="nodes">
+        <option v-for="option in nodesOptions" v-bind:value="option">
+          {{ option }}
+        </option>
+      </select>
+    </span>
+
+    <span class="control select is-medium">
       <select v-model="problem">
         <option v-for="option in problemOptions" v-bind:value="option">
           {{ option }}
@@ -46,12 +54,16 @@ export default {
        return ret.join('&');
     },
     reset(){
+      this.nodes = this.nodesOptions[0];
       this.problem = this.problemOptions[0];
       this.solver = this.solverOptions[0];
       this.status = this.statusOptions[0];
     }, 
     submit(){
       let paras = {};
+      if( ! this.nodes.includes('Select') ){
+        paras.nodes = this.nodes;
+      }      
       if( ! this.problem.includes('Select') ){
         paras.prb = this.problem;
       }
