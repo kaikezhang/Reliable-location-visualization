@@ -45,7 +45,9 @@
           <a :href="'/solutions/' + solution.id + '/log'">Check</a>
         </template>          
         </td>
+        <template v-if="isHasSolution(solution)">
         <td><a :href="'/solutions/' + solution.id">View</a></td>
+        </template>
       </tr>   
     </tbody> 
   </table>
@@ -80,7 +82,11 @@ export default {
   methods:{
     isInfeasible(solution){
       return solution.status === "Infeasible";
+    },
+    isHasSolution(solution){
+      return solution.status != "Infeasible" && solution.status != "Error";
     }
+
   }
 }
 </script>
