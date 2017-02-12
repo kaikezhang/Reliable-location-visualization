@@ -1,38 +1,43 @@
 <template>
 <div>
 <div class="column is-12">
-<div class="control is-pulled-right">
+<div class="columns">
+  <div class="column">
     <span class="control select is-medium">
       <select v-model="nodes">
         <option v-for="option in nodesOptions" v-bind:value="option">
           {{ option }}
         </option>
       </select>
-    </span>
-
-    <span class="control select is-medium">
-      <select v-model="problem">
-        <option v-for="option in problemOptions" v-bind:value="option">
-          {{ option }}
-        </option>
-      </select>
-    </span>
-
-    <span class="control select is-medium">
-      <select v-model="solver">
-        <option v-for="option in solverOptions" v-bind:value="option">
-          {{ option }}
-        </option>
-      </select>
-    </span>
-
-    <span class="control select is-medium">
-      <select v-model="status">
-        <option v-for="option in statusOptions" v-bind:value="option">
-          {{ option }}
-        </option>
-      </select>
     </span>    
+  </div> 
+  <div class="column">
+      <span class="control select is-medium">
+        <select v-model="problem">
+          <option v-for="option in problemOptions" v-bind:value="option">
+            {{ option }}
+          </option>
+        </select>
+      </span>
+  </div>
+  <div class="column">
+      <span class="control select is-medium">
+        <select v-model="solver">
+          <option v-for="option in solverOptions" v-bind:value="option">
+            {{ option }}
+          </option>
+        </select>
+      </span>
+  </div>
+  <div class="column">
+      <span class="control select is-medium">
+        <select v-model="status">
+          <option v-for="option in statusOptions" v-bind:value="option">
+            {{ option }}
+          </option>
+        </select>
+      </span>
+  </div>        
 </div>
 </div>
 <div class="column is-12">

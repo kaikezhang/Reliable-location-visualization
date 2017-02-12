@@ -44,10 +44,12 @@
         <template v-if="solution.has_log">
           <a :href="'/solutions/' + solution.id + '/log'">Check</a>
         </template>          
-        </td>
+        </td>  
+        <td>
         <template v-if="isHasSolution(solution)">
-        <td><a :href="'/solutions/' + solution.id">View</a></td>
+        <a :href="'/solutions/' + solution.id">View</a>
         </template>
+        </td>
       </tr>   
     </tbody> 
   </table>
