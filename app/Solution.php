@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\SolutionsModified;
 use Illuminate\Database\Eloquent\Model;
 use \DB;
 
@@ -16,10 +17,22 @@ class Solution extends Model
       'updated_at'
     ];
 
-    protected $appends = 
+    protected $appends =
     ['nb_nodes', 'nb_open', 'solution_time', 'obj_value',
-     'parameters', 'nb_cuts', 'gap', 'problem', 
+     'parameters', 'nb_cuts', 'gap', 'problem',
      'solver', 'status', 'log', 'has_log'];
+
+
+     /**
+      * The event map for the model.
+      *
+      * @var array
+      */
+     protected $events = [
+         'saved' => SolutionsModified::class,
+         'deleted' => SolutionsModified::class,
+     ];
+
 
     public function getStatusAttribute()
     {
@@ -44,7 +57,7 @@ class Solution extends Model
     public function getObjValueAttribute()
     {
       return array_get($this->data, 'objectiveValue', '-');
-    }   
+    }
 
     public function getParametersAttribute()
     {
@@ -78,7 +91,7 @@ class Solution extends Model
 
     public function getHasLogAttribute()
     {
-      if($this->log == '-') 
+      if($this->log == '-')
         return false;
       return true;
     }
@@ -90,15 +103,15 @@ class Solution extends Model
                       ->distinct()->get()
                       ->all();
       $ret = array_map(create_function('$o', "return trim(\$o->$attr,'\"');"), $ret);
-      return $ret;  
+      return $ret;
     }
 
     static function getNodeses(){
-      return self::findAllUnique('numberofNodes');    
+      return self::findAllUnique('numberofNodes');
     }
 
     static function getProblmes(){
-      return self::findAllUnique('problem');    
+      return self::findAllUnique('problem');
     }
 
     static function getSolvers(){
@@ -107,6 +120,6 @@ class Solution extends Model
 
     static function getStatuses(){
       return self::findAllUnique('status');
-    }    
+    }
 
 }

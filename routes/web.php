@@ -16,10 +16,10 @@ use Illuminate\Http\Request;
 
 Route::get('/', function (Request $request) {
 
-    $nodeses = Solution::getNodeses();               
-    $problems = Solution::getProblmes();
-    $solvers = Solution::getSolvers();
-    $statuses = Solution::getStatuses();                                            
+    $nodeses = Cache::get('nodeses', []);
+    $problems = Cache::get('problems', []);
+    $solvers = Cache::get('solvers', []);
+    $statuses = Cache::get('statuses', []);
 
     $filters = new stdClass();
     $filters->nodesOptions = array_filter(array_prepend($nodeses, 'Select Number of Nodes'));
@@ -65,7 +65,7 @@ Route::get('/', function (Request $request) {
 
 	$solutions = $queryBuilder->paginate(20)->appends($request->except(['page']));
 
-    return view('index', ['solutions' => $solutions, 
+    return view('index', ['solutions' => $solutions,
                           'shouldRecieveUpdate' => $shouldRecieveUpdate,
                           'filters' => $filters]);
 });
@@ -85,11 +85,11 @@ Route::get('/solutions/{id}/log', function ( $id) {
 
 Route::post('api/solutions', function(Request $request){
     $data = $request->input('data');
-    $solution = new  Solution;  
+    $solution = new  Solution;
     $solution->data = json_decode($data,true);
     $solution->save();
     event(new App\Events\SolutionCreated($solution));
-    return response('OK id= ' .$solution->id, 200);    
+    return response('OK id= ' .$solution->id, 200);
 });
 
 Route::get('api/solutions/{sol}', function(Solution $sol) {
@@ -108,12 +108,3 @@ Route::get('heatmaps', function(){
 	$maps = ['earthquakes', 'tornadoes'];
 	return view('heatmaps.index', compact('maps'));
 });
-
-
-
-
-
-
-
-
-
