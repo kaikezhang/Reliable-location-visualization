@@ -33,6 +33,11 @@
             <filter-form></filter-form>
       </div>
       <div class="columns">
+        <div class="column is-12">
+        {{ $solutions->links() }}
+        </div>
+      </div>      
+      <div class="columns">
         <div class="column is-12" >
           <dash-table></dash-table>
         </div>
@@ -40,9 +45,9 @@
       <div class="columns">
         <div class="column is-12">
         {{ $solutions->links() }}
-        </div>    
+        </div>
       </div>
-    </div>       
+    </div>
     </section>
     <script type="text/javascript">
      let data = {!! $solutions->toJson()!!};

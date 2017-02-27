@@ -27,7 +27,7 @@ Route::get('/', function (Request $request) {
     $filters->solverOptions = array_filter(array_prepend($solvers, 'Select Solver'));
     $filters->statusOptions = array_filter(array_prepend($statuses, 'Select Status'));
 
-    $queryBuilder = Solution::orderBy('created_at','desc');
+    $queryBuilder = Solution::orderBy('id','desc');
     $shouldRecieveUpdate = true;
 
     if($request->has('page') && ($request->get('page') > 1)){
@@ -63,7 +63,7 @@ Route::get('/', function (Request $request) {
     }
 
 
-	$solutions = $queryBuilder->paginate(20)->appends($request->except(['page']));
+	$solutions = $queryBuilder->paginate(100)->appends($request->except(['page']));
 
     return view('index', ['solutions' => $solutions,
                           'shouldRecieveUpdate' => $shouldRecieveUpdate,
