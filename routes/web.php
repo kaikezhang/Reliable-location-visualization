@@ -30,6 +30,13 @@ Route::get('/', function (Request $request) {
     $queryBuilder = Solution::orderBy('id','desc');
     $shouldRecieveUpdate = true;
 
+    if($request->has('from') && $request->has('to')){
+      $shouldRecieveUpdate = false;
+      $queryBuilder = Solution::orderBy('id');
+      $queryBuilder = $queryBuilder->where('id', '>=', $request->get('from'))->where('id', '<=', $request->get('to'));
+    }
+
+
     if($request->has('page') && ($request->get('page') > 1)){
         $shouldRecieveUpdate = false;
     }
